@@ -18,7 +18,7 @@ Validaçåo cruzada em teste?
 
 
 This is an implementation of the Classification Rules algorithm, based on the paper **Discovering Comprehensible Classification Rules with a Genetic Algorithm**
-de M.V. Fidelis.
+by M.V. Fidelis.
 
 # Chromosome structure
 

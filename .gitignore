@@ -1,5 +1,6 @@
 #Maven
-target/
+# push it to be able to build directly on ocp by usinf dockerfile strategy
+# target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
