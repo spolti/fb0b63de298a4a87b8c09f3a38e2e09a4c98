@@ -1,22 +1,5 @@
 # Classification-rules
 
--- 
-confirmar com a professora
-- como atribuir os sinais das operaçoes
-- qual o limite da idade
-- a partir de quem o fitness é calculado
-- perguntar para a professora sobre o trehsold, no artigo fala (por enquanto usar o que a profesora falar)
-  - We used a Limit value of 0.3, so that conditions with a weight smaller than or equal to 0.3
-    were effectively removed from the rule. Note that mutations in the field weight can cause the corresponding 
-    attribute to be removed or re-inserted into the rule.
-  - E na aula gravada, fala o contrário
-
-
-
-
-Validaçåo cruzada em teste?
-
-
 This is an implementation of the Classification Rules algorithm, based on the paper **Discovering Comprehensible Classification Rules with a Genetic Algorithm**
 by M.V. Fidelis.
 
@@ -28,16 +11,11 @@ Will be built as following:
  - **W** is a real-valued variable taking values into rang from [0..1]Float. This variable indicates whether the 
    corresponding attribute is present or not in the rule.
    - When `W` is smaller than a user-defined `threshold`, the `i-th` condition is removed from the rule.
-   - The greater the value of the `threshold`  the smaller the probability that the corresponding condition will be 
-     present in the rule. 
    - The threshold limit used is `0.3` (confirm with Gina about it, it probably is wrong and needs to be updated to 0.7)
-     and the signals below changed to `<=` and `>` 
  - **O** indicates the relational operator, `=` and `!=` for (categorical, nominal, usually string or enums) and `>=` and `<` for continuous (float)
    - only the age attribute is linear, the rest are categorical.
    - Age is randomly generated between 0 and 100. (is that correct?)
- - **V** contains one of the values belonging to the domain of attribute `A`, (is coded into binary string which is properly 
-   decoded for fitness evaluation -- IS THIS REALLY NEEDED???). The number of bits used to encode V is proportional to the number of values in the
-   domain of attribute `A`.
+ - **V** contains one of the values belonging to the domain of attribute.
 
 > **Note**
 > Each chromosome has a fixed length, the genes are interpreted (based on the weight value W) in such
@@ -118,14 +96,6 @@ To generate the fitness, we need to read the dataset and compare the values from
 ### Breast cancer dataset has 2 classes:
 - Malignant
 - Benign
-
-
-> **Note**
-> If there are 6 classes, then the GA needs to be run 6 times, one for each class.
-
-
-# Datasets:
-
 
 
 ## Dermatology dataset

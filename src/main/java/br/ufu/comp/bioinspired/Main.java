@@ -25,9 +25,8 @@ public class Main implements QuarkusApplication {
         // Derma rules calculation
         RunDermatological.execute(D_POPULATION_SIZE, DERMA_CHROMO_SIZE, GENERATIONS, TURNS);
 
-
         // Breast cancer rules calculation
-        //RunBreast.execute(D_POPULATION_SIZE, BREAST_CHROMO_SIZE, GENERATIONS, TURNS);
+        RunBreast.execute(D_POPULATION_SIZE, BREAST_CHROMO_SIZE, GENERATIONS, TURNS);
 
         System.out.println("Time: " + (System.currentTimeMillis() - start) + "ms");
         return 0;

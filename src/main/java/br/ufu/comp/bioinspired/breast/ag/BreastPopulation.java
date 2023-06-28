@@ -53,8 +53,7 @@ public class BreastPopulation {
         LinkedList<BreastGene> normalizedGene = new LinkedList<>();
 
         for (int j = 1; j < individuals[0].genes().size(); j++) {
-            // TODO update to > 0.3f after tests
-            if (individuals[0].genes().get(j).weight() > 0.3f) {
+            if (individuals[0].genes().get(j).weight() > 0.7f) {
                 normalizedGene.add(individuals[0].genes().get(j));
             }
         }
@@ -68,6 +67,10 @@ public class BreastPopulation {
 
     public BreastChromosome[] getIndividuals() {
         return individuals;
+    }
+
+    public BreastClasses getBreastClass() {
+        return breastClass;
     }
 
     public void setIndividuals(BreastChromosome[] individuals) {

@@ -66,8 +66,6 @@ public class RunDermatological {
                 class6Fitness = class6.getIndividuals()[0].getFitness();
                 bestClass6 = class6;
             }
-
-
         }
 
         Chromosome[] bestc1 = new Chromosome[1];
@@ -76,6 +74,9 @@ public class RunDermatological {
         float testFitc1 = Fitness.calculateFitness(bestc1, DermaClasses.fromId(1), dermaDataset.testDataset())[0].getFitness();
         bestClass1.getIndividuals()[0].setFitness(fitnessFirstc1);
         bestClass1.getBest(testFitc1);
+        Utils.formatResult(bestClass1.getIndividuals()[0], DermaClasses.fromId(1), null,
+              null, bestClass1.getIndividuals()[0].getFitness(), fitnessFirstc1);
+
 
         Chromosome[] bestc2 = new Chromosome[1];
         bestc2[0] = bestClass2.getIndividuals()[0];
@@ -83,6 +84,8 @@ public class RunDermatological {
         float testFitc2 = Fitness.calculateFitness(bestc2, DermaClasses.fromId(2), dermaDataset.testDataset())[0].getFitness();
         bestClass2.getIndividuals()[0].setFitness(fitnessFirstc2);
         bestClass2.getBest(testFitc2);
+        Utils.formatResult(bestClass2.getIndividuals()[0], DermaClasses.fromId(2), null,
+                null, bestClass2.getIndividuals()[0].getFitness(), testFitc2);
 
         Chromosome[] bestc3 = new Chromosome[1];
         bestc3[0] = bestClass3.getIndividuals()[0];
@@ -90,6 +93,8 @@ public class RunDermatological {
         float testFitc3 = Fitness.calculateFitness(bestc3, DermaClasses.fromId(3), dermaDataset.testDataset())[0].getFitness();
         bestClass3.getIndividuals()[0].setFitness(fitnessFirstc3);
         bestClass3.getBest(testFitc3);
+        Utils.formatResult(bestClass3.getIndividuals()[0], DermaClasses.fromId(3), null,
+                null, bestClass3.getIndividuals()[0].getFitness(), testFitc3);
 
         Chromosome[] bestc4 = new Chromosome[1];
         bestc4[0] = bestClass4.getIndividuals()[0];
@@ -97,6 +102,8 @@ public class RunDermatological {
         float testFitc4 = Fitness.calculateFitness(bestc4, DermaClasses.fromId(4), dermaDataset.testDataset())[0].getFitness();
         bestClass4.getIndividuals()[0].setFitness(fitnessFirstc4);
         bestClass4.getBest(testFitc4);
+        Utils.formatResult(bestClass4.getIndividuals()[0], DermaClasses.fromId(4), null,
+                null, bestClass4.getIndividuals()[0].getFitness(), testFitc4);
 
         Chromosome[] bestc5 = new Chromosome[1];
         bestc5[0] = bestClass5.getIndividuals()[0];
@@ -104,6 +111,8 @@ public class RunDermatological {
         float testFitc5 = Fitness.calculateFitness(bestc5, DermaClasses.fromId(5), dermaDataset.testDataset())[0].getFitness();
         bestClass5.getIndividuals()[0].setFitness(fitnessFirstc5);
         bestClass5.getBest(testFitc5);
+        Utils.formatResult(bestClass5.getIndividuals()[0], DermaClasses.fromId(5), null,
+                null, bestClass5.getIndividuals()[0].getFitness(), testFitc5);
 
         Chromosome[] bestc6 = new Chromosome[1];
         bestc6[0] = bestClass6.getIndividuals()[0];
@@ -111,6 +120,8 @@ public class RunDermatological {
         float testFitc6 = Fitness.calculateFitness(bestc6, DermaClasses.fromId(6), dermaDataset.testDataset())[0].getFitness();
         bestClass6.getIndividuals()[0].setFitness(fitnessFirstc6);
         bestClass6.getBest(testFitc6);
+        Utils.formatResult(bestClass6.getIndividuals()[0], DermaClasses.fromId(6), null,
+                null, bestClass6.getIndividuals()[0].getFitness(), testFitc6);
 
     }
 }

@@ -61,9 +61,6 @@ public class Tournament {
             BreastChromosome parent1 = performTournamentSelection(chromosomes, random, totalFitness, rouletteTotal);
             BreastChromosome parent2 = performTournamentSelection(chromosomes, random, totalFitness, rouletteTotal);
 
-//            System.out.println("parent1: " + parent1.getFitness());
-//            System.out.println("parent2: " + parent2.getFitness());
-
             // Perform crossover if crossover probability is met
             if (random.nextDouble() < CROSSOVER_PROBABILITY) {
                 children[j++] = performTwoPointCrossover(parent1, parent2, random)[0];
@@ -71,7 +68,6 @@ public class Tournament {
 
             } else {
                 // If crossover is not performed, select one of the parents as the child
-                //System.out.println("No crossover - as the rate is 100%, this point should never be reached.");
                 children[j++] = parent1;
                 children[j++] = parent2;
             }
@@ -110,8 +106,6 @@ public class Tournament {
         int middle = parent1.genes().size() / 2;
         int crossoverPoint = random.nextInt(1, middle);
         int crossoverPoint2 = random.nextInt(middle, parent1.genes().size());
-        //
-        // System.out.println("Crossing over at " + crossoverPoint + " and " + crossoverPoint2);
 
         BreastChromosome[] children = new BreastChromosome[2];
 
@@ -132,13 +126,6 @@ public class Tournament {
                 child2.genes().add(i, new BreastGene(parent2.genes().get(i)));
             }
         }
-//
-//        System.out.println("Parent 1: " + parent1.genes());
-//        System.out.println("parent 2: " + parent2.genes());
-//
-//        System.out.println("Child 1: " + child1.genes());
-//        System.out.println("Child 2: " + child2.genes());
-
         children[0] = child1;
         children[1] = child2;
         return children;
@@ -154,24 +141,13 @@ public class Tournament {
             int candidate = random.nextInt(totalFitness);
             tournament[i] = population[rouletteTotal[candidate]];
         }
-//        System.out.println("=====================================");
-//        System.out.println("Selected parent 1: " + tournament[0].getFitness());
-//        System.out.println("Selected parent 2 : " + tournament[1].getFitness());
-//        System.out.println("Selected parent 3: " + tournament[2].getFitness());
 
         tournamentWinner = tournament[0];
         for (int i = 0; i < TOURNAMENT_SIZE; i++) {
-//            System.out.println(tournament[i].getFitness()+ " > " + tournamentWinner.getFitness());
             if (tournament[i].getFitness() > tournamentWinner.getFitness()) {
                 tournamentWinner = tournament[i];
             }
         }
-//        System.out.println("Winner: " + tournamentWinner.getFitness());
-//        System.out.println("=====================================");
         return tournamentWinner;
     }
-
-
-
-
 }

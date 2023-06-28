@@ -40,6 +40,9 @@ public abstract class RunBreast {
         bestClass1.getIndividuals()[0].setFitness(fitnessFirstc1);
         bestClass1.getBest(testFitc1);
 
+        Utils.formatResult(null, null, bestClass1.getIndividuals()[0],
+                bestClass1.getBreastClass(), bestClass1.getIndividuals()[0].getFitness(), fitnessFirstc1);
+
         // Breast class 2
         BreastChromosome[] bestc2 = new BreastChromosome[1];
         bestc2[0] = bestClass2.getIndividuals()[0];
@@ -47,5 +50,8 @@ public abstract class RunBreast {
         float testFitc2 = BreastFitness.calculateFitness(bestc2, BreastClasses.fromId(2), breastDataset.testDataset())[0].getFitness();
         bestClass2.getIndividuals()[0].setFitness(fitnessFirstc2);
         bestClass2.getBest(testFitc2);
+
+        Utils.formatResult(null, null, bestClass2.getIndividuals()[0],
+                bestClass2.getBreastClass(), bestClass2.getIndividuals()[0].getFitness(), fitnessFirstc2);
     }
 }

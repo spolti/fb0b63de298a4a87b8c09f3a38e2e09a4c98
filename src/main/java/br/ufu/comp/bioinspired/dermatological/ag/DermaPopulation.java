@@ -46,8 +46,7 @@ public class DermaPopulation {
         LinkedList<Gene> normalizedGene = new LinkedList<>();
 
         for (int j = 0; j < individuals[0].genes().size(); j++) {
-            // TODO update to > 0.7f after tests
-            if (individuals[0].genes().get(j).weight() > 0.3f) {
+            if (individuals[0].genes().get(j).weight() > 0.7f) {
                 normalizedGene.add(individuals[0].genes().get(j));
             }
         }

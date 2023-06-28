@@ -1,7 +1,13 @@
 package br.ufu.comp.bioinspired;
 
 import br.ufu.comp.bioinspired.breast.attributes.BreastAttributes;
+import br.ufu.comp.bioinspired.breast.attributes.BreastClasses;
+import br.ufu.comp.bioinspired.breast.chromosome.BreastChromosome;
+import br.ufu.comp.bioinspired.breast.chromosome.BreastGene;
 import br.ufu.comp.bioinspired.dermatological.attributes.DermaAttributes;
+import br.ufu.comp.bioinspired.dermatological.attributes.DermaClasses;
+import br.ufu.comp.bioinspired.dermatological.chromosome.Chromosome;
+import br.ufu.comp.bioinspired.dermatological.chromosome.Gene;
 
 import java.util.Random;
 
@@ -22,13 +28,14 @@ public abstract class Utils {
      * @param max
      * @return a randon number between the range
      */
-    public static int randomBetween(int min, int max){
+    public static int randomBetween(int min, int max) {
         return r.nextInt(max - min) + min;
     }
 
     /**
      * define how many children will be generated, as the crossover probability is 100%, all parents will generate 2
      * children, which means that the number of children will be the same as the number of parents
+     *
      * @param size
      * @param percentage
      * @return
@@ -41,6 +48,7 @@ public abstract class Utils {
 
     /**
      * Generate a random value for all attributes, respecting the domain values and special cases;
+     *
      * @param attribute
      * @return random value based on its domain
      */
@@ -64,6 +72,7 @@ public abstract class Utils {
 
     /**
      * Generate a random value for all attributes, respecting the domain values and special cases;
+     *
      * @param attribute
      * @return
      */
@@ -86,14 +95,15 @@ public abstract class Utils {
                 domainValue = BreastAttributes.invNodes.get(r.nextInt(13));
                 break;
 
-            case NODE_CAPS: case IRRADIATE:
+            case NODE_CAPS:
+            case IRRADIATE:
                 domainValue = BreastAttributes.yesNo.get(r.nextInt(2));
                 break;
 
             case DEG_MALIG:
-                domainValue = ""+r.nextInt(4);
+                domainValue = "" + r.nextInt(4);
                 while (domainValue.equals("0")) {
-                    domainValue = ""+r.nextInt(4);
+                    domainValue = "" + r.nextInt(4);
                 }
                 break;
 
@@ -111,4 +121,41 @@ public abstract class Utils {
         }
         return domainValue;
     }
+
+    /**
+     * pre-format the rule
+     * TODO print all formatted
+     * @param chromosome
+     * @param dc
+     * @param breastChromosome
+     * @param breastClasses
+     * @param trainFit
+     * @param testFit
+     */
+    public static void formatResult(Chromosome chromosome, DermaClasses dc, BreastChromosome breastChromosome,
+                                    BreastClasses breastClasses, float trainFit, float testFit) {
+        StringBuilder b = new StringBuilder();
+        String rule = "IF ";
+
+        if (chromosome != null) {
+            for (Gene c : chromosome.genes()) {
+                if (c.weight() > 0.7f) {
+                    rule += "("+ DermaAttributes.getByID(c.attributeID()).getName() + ") " + c.operator().getOperator() + c.domainValue() + " AND \n";
+                }
+            }
+            b.append(String.format("%s - %s - %s", dc.getName(), rule, trainFit + " - " + testFit));
+        }
+        if (breastChromosome != null) {
+            for (BreastGene c : breastChromosome.genes()) {
+                if (c != null) {
+                    if (c.weight() > 0.7f) {
+                        rule += "("+ BreastAttributes.getByID(c.attributeID()).getName() + ") " + c.operator().getOperator() + " " + c.domainValue() + " AND \n";
+                    }
+                }
+            }
+            b.append(String.format("%s - %s - %s", breastClasses.getName(), rule, trainFit + " - " + testFit));
+        }
+        System.out.println(b);
+    }
+
 }

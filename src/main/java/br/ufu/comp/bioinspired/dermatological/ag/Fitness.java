@@ -27,9 +27,9 @@ import java.util.LinkedList;
  * ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
  * <p>
  * After all the parameters are properly counted, use the following formula to calculate the fitness:
- * Se = TP / (TP + FN)
- * Sp = TN / (TN + FP)
- * Fitness = (Se + Sp)
+ *    Se = TP / (TP + FN)
+ *    Sp = TN / (TN + FP)
+ *    Fitness = (Se * Sp)
  */
 public abstract class Fitness {
 
@@ -42,13 +42,8 @@ public abstract class Fitness {
      * @return
      */
     public static Chromosome[] calculateFitness(Chromosome[] individuals, DermaClasses chromosomeClass, LinkedList<int[]> dataset) {
-        int bc = 0;
-
         for (Chromosome individual : individuals) {
             int tp = 0, fp = 0, tn = 0, fn = 0;
-            bc++;
-
-//            System.out.println(individual.toString());
 
             boolean geneHasMatchedTheOperationalCondition = false;
             int datasetClass = 99;
@@ -66,43 +61,33 @@ public abstract class Fitness {
                 int weightMatchCounter = 0;
 
                 for (int i = 0; i < individual.genes().size(); i++) {
-                    // TODO update to < 0.3f after tests
-                    if (individual.genes().get(i).weight() < 0.3f) {
+                    if (individual.genes().get(i).weight() > 0.7f) {
                         geneHasMatchedTheOperationalCondition = false;
                         weightMatchCounter++;
-
-//                        System.out.println(j + " -- Gene ID: " + i + "{CLASS: " + chromosomeClass.getId() + "} value " + individual.genes().get(i).domainValue() + " "
-//                                + individual.genes().get(i).operator() +
-//                                "  dataset -- " + dermatologicalDataset.dataSet().get(j)[i]
-//                                + " {Class: " + datasetClass + "}");
 
                         // if the class in the dataset entry matches the chromosome class, then we have a match
                         // and we can calculate the True Positive (tp)
                         switch (individual.genes().get(i).operator()) {
                             case EQUAL:
                                 if (individual.genes().get(i).domainValue() == dataset.get(j)[i]) {
-//                                    System.out.println("Equal entrou");
                                     geneHasMatchedTheOperationalCondition = true;
                                 }
                                 break;
 
                             case NOT_EQUAL:
                                 if (individual.genes().get(i).domainValue() != dataset.get(j)[i]) {
-//                                    System.out.println("Not Equal entrou");
                                     geneHasMatchedTheOperationalCondition = true;
                                 }
                                 break;
 
                             case LESS_THAN:
                                 if (individual.genes().get(i).domainValue() < dataset.get(j)[i]) {
-//                                    System.out.println("Menor que Equal entrou");
                                     geneHasMatchedTheOperationalCondition = true;
                                 }
                                 break;
 
                             case GREATER_EQUAL_THAN:
                                 if (individual.genes().get(i).domainValue() >= dataset.get(j)[i]) {
-//                                    System.out.println("Maior ou igual que entrou");
                                     geneHasMatchedTheOperationalCondition = true;
                                 }
                                 break;
@@ -123,23 +108,21 @@ public abstract class Fitness {
                     }
                 }
 
-//                System.out.println("TP="+tpCounter + " " + weightMatchCounter);
-//                System.out.println("FP="+fpCounter + " " + weightMatchCounter);
-                // all attributes matches, and the class matches ( tem a doença e a classe bateu)
                 if ((tpCounter == weightMatchCounter) && (tpCounter != 0 && weightMatchCounter != 0)) {
-//                    System.out.println("TRUE Positive");
+                    // TRUE Positive
+                    //all attributes matches, and the class matches ( tem a doença e a classe bateu)
                     tp++;
-                    // all attributes matches, but the class does not match (tem a doença e a classe não bateu)
+
                 } else if ((fpCounter == weightMatchCounter) && (fpCounter != 0 && weightMatchCounter != 0)) {
-//                    System.out.println("FALSE Positive");
+                    // all attributes matches, but the class does not match (tem a doença e a classe não bateu)
+                    // FALSE Positive
                     fp++;
                     // only the class matches
                 } else if ((chromosomeClass.getId() == datasetClass) && weightMatchCounter != 0) {
-//                    System.out.println("FALSE Negative");
+                    // only the class matches False Negative
                     fn++;
                 } else if ((chromosomeClass.getId() != datasetClass) && weightMatchCounter != 0) {
-                    // nothing matches
-//                    System.out.println("TRue Negative");
+                    // nothing matches False Negative True Negative
                     tn++;
                 }
 //                System.out.println(String.format("TP: %d, FP: %d, TN: %d, FN: %d", tp, fp, tn, fn));
@@ -151,8 +134,6 @@ public abstract class Fitness {
                 float specificity = (float) tn / (tn + fp);
                 float fitness = Utils.round5Decimal((float) sensitivity * specificity);
                 individual.setFitness(fitness);
-//                System.out.println(String.format("Fitness individual  %d: %s", bc, fitness));
-//                System.out.println("==============================================");
             } catch (ArithmeticException e) {
                 individual.setFitness(0.0f);
             }
