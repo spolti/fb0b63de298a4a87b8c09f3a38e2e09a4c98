@@ -1,5 +1,6 @@
 package br.ufu.comp.bioinspired.breast.ag;
 
+import br.ufu.comp.bioinspired.Config;
 import br.ufu.comp.bioinspired.Utils;
 import br.ufu.comp.bioinspired.breast.attributes.BreastClasses;
 import br.ufu.comp.bioinspired.breast.chromosome.BreastChromosome;
@@ -61,9 +62,8 @@ public abstract class BreastFitness {
                 int weightMatchCounter = 0;
 
                 for (int i = 1; i < individual.genes().size(); i++) {
-
-                    // TODO update to > 0.3f after tests
-                    if (individual.genes().get(i).weight() > 0.7f) {
+                    // TODO centralize through predicate?
+                    if (individual.genes().get(i).weight() > Config.WEIGHT_LIMIT) {
                         geneHasMatchedTheOperationalCondition = false;
                         weightMatchCounter++;
 

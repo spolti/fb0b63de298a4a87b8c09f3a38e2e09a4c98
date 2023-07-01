@@ -23,4 +23,5 @@ br/ufu/comp/bioinspired/dermatological/chromosome/Gene.class
 br/ufu/comp/bioinspired/breast/ag/Tournament.class
 br/ufu/comp/bioinspired/Operator.class
 br/ufu/comp/bioinspired/Utils$1.class
+br/ufu/comp/bioinspired/Config.class
 br/ufu/comp/bioinspired/Utils.class

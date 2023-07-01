@@ -1,5 +1,6 @@
 package br.ufu.comp.bioinspired.dermatological.ag;
 
+import br.ufu.comp.bioinspired.Config;
 import br.ufu.comp.bioinspired.Utils;
 import br.ufu.comp.bioinspired.dermatological.attributes.DermaClasses;
 import br.ufu.comp.bioinspired.dermatological.chromosome.Chromosome;
@@ -61,7 +62,8 @@ public abstract class Fitness {
                 int weightMatchCounter = 0;
 
                 for (int i = 0; i < individual.genes().size(); i++) {
-                    if (individual.genes().get(i).weight() > 0.7f) {
+                    // TODO centralize through predicate?
+                    if (individual.genes().get(i).weight() > Config.WEIGHT_LIMIT) {
                         geneHasMatchedTheOperationalCondition = false;
                         weightMatchCounter++;
 
@@ -69,25 +71,25 @@ public abstract class Fitness {
                         // and we can calculate the True Positive (tp)
                         switch (individual.genes().get(i).operator()) {
                             case EQUAL:
-                                if (individual.genes().get(i).domainValue() == dataset.get(j)[i]) {
+                                if (dataset.get(j)[i] == individual.genes().get(i).domainValue()) {
                                     geneHasMatchedTheOperationalCondition = true;
                                 }
                                 break;
 
                             case NOT_EQUAL:
-                                if (individual.genes().get(i).domainValue() != dataset.get(j)[i]) {
+                                if (dataset.get(j)[i]  != individual.genes().get(i).domainValue()) {
                                     geneHasMatchedTheOperationalCondition = true;
                                 }
                                 break;
 
                             case LESS_THAN:
-                                if (individual.genes().get(i).domainValue() < dataset.get(j)[i]) {
+                                if (dataset.get(j)[i] < individual.genes().get(i).domainValue()  ) {
                                     geneHasMatchedTheOperationalCondition = true;
                                 }
                                 break;
 
                             case GREATER_EQUAL_THAN:
-                                if (individual.genes().get(i).domainValue() >= dataset.get(j)[i]) {
+                                if (dataset.get(j)[i] >= individual.genes().get(i).domainValue()) {
                                     geneHasMatchedTheOperationalCondition = true;
                                 }
                                 break;
@@ -133,9 +135,12 @@ public abstract class Fitness {
                 float sensitivity = (float) tp / (tp + fn);
                 float specificity = (float) tn / (tn + fp);
                 float fitness = Utils.round5Decimal((float) sensitivity * specificity);
+                if (fitness == 0.0) {
+                    fitness = 0.001f;
+                }
                 individual.setFitness(fitness);
             } catch (ArithmeticException e) {
-                individual.setFitness(0.0f);
+                individual.setFitness(0.0001f);
             }
         }
         return individuals;

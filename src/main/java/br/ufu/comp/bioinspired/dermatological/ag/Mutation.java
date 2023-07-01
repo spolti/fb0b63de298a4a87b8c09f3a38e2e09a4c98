@@ -55,10 +55,14 @@ public abstract class Mutation {
      * @param value
      * @return mutated value
      */
-    public static int mutateDomainValue(DermaAttributes attribute, int value) {
-        int domainValue = Utils.generatedDermatologicalDomainValue(attribute);
+    public static int mutateDomainValue(DermaAttributes attribute, int value, Operator operator) {
+        boolean greaterThanZero = false;
+        if (operator == Operator.LESS_THAN) {
+            greaterThanZero = true;
+        }
+        int domainValue = Utils.generatedDermatologicalDomainValue(attribute, greaterThanZero);
         while (domainValue == value) {
-            domainValue = Utils.generatedDermatologicalDomainValue(attribute);
+            domainValue = Utils.generatedDermatologicalDomainValue(attribute, greaterThanZero);
         }
         return domainValue;
     }

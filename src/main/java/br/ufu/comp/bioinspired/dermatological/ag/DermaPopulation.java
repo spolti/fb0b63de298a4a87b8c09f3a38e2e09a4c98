@@ -1,5 +1,7 @@
 package br.ufu.comp.bioinspired.dermatological.ag;
 
+import br.ufu.comp.bioinspired.Config;
+import br.ufu.comp.bioinspired.Operator;
 import br.ufu.comp.bioinspired.dermatological.attributes.DermaAttributes;
 import br.ufu.comp.bioinspired.dermatological.attributes.DermaClasses;
 import br.ufu.comp.bioinspired.dermatological.chromosome.Chromosome;
@@ -14,7 +16,8 @@ public class DermaPopulation {
     private Chromosome[] individuals;
     private DermaClasses diseaseClass;
 
-    public DermaPopulation() { }
+    public DermaPopulation() {
+    }
 
     // Fitness is calculated here in the population initialization as well.
     public DermaPopulation(int populationSize, int chromosomeSize, int generations, DermaClasses diseaseClass, LinkedList<int[]> dataset) {
@@ -46,8 +49,14 @@ public class DermaPopulation {
         LinkedList<Gene> normalizedGene = new LinkedList<>();
 
         for (int j = 0; j < individuals[0].genes().size(); j++) {
-            if (individuals[0].genes().get(j).weight() > 0.7f) {
-                normalizedGene.add(individuals[0].genes().get(j));
+            // TODO centralize through predicate?
+            if (individuals[0].genes().get(j).weight() > Config.WEIGHT_LIMIT) {
+                if (individuals[0].genes().get(j).operator() == Operator.EQUAL && individuals[0].genes().get(j).domainValue() <= 0) {
+                    System.out.println("Filtering it out.... == 0");
+                } else {
+                    // normalize means, add only the genes that have weight > 0.7
+                    normalizedGene.add(individuals[0].genes().get(j));
+                }
             }
         }
 
@@ -79,7 +88,7 @@ public class DermaPopulation {
             for (int i = 0; i < 78; i++) {
                 b.append(String.format("‾"));
             }
-            b.append(String.format("\n"));
+//            b.append(String.format("\n"));
         }
         return b;
     }

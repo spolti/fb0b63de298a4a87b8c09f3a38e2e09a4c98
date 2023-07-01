@@ -1,5 +1,6 @@
 package br.ufu.comp.bioinspired.breast.ag;
 
+import br.ufu.comp.bioinspired.Config;
 import br.ufu.comp.bioinspired.breast.attributes.BreastAttributes;
 import br.ufu.comp.bioinspired.breast.attributes.BreastClasses;
 import br.ufu.comp.bioinspired.breast.chromosome.BreastChromosome;
@@ -53,7 +54,9 @@ public class BreastPopulation {
         LinkedList<BreastGene> normalizedGene = new LinkedList<>();
 
         for (int j = 1; j < individuals[0].genes().size(); j++) {
-            if (individuals[0].genes().get(j).weight() > 0.7f) {
+            // TODO centralize through predicate?
+            if (individuals[0].genes().get(j).weight() > Config.WEIGHT_LIMIT) {
+                // normalize means, add only the genes that have weight > 0.7
                 normalizedGene.add(individuals[0].genes().get(j));
             }
         }

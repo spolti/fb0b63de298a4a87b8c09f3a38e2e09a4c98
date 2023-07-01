@@ -11,10 +11,10 @@ Will be built as following:
  - **W** is a real-valued variable taking values into rang from [0..1]Float. This variable indicates whether the 
    corresponding attribute is present or not in the rule.
    - When `W` is smaller than a user-defined `threshold`, the `i-th` condition is removed from the rule.
-   - The threshold limit used is `0.3` (confirm with Gina about it, it probably is wrong and needs to be updated to 0.7)
+   - The threshold limit used is < `0.3`, genes with weight less than or equal to 3 stays.
  - **O** indicates the relational operator, `=` and `!=` for (categorical, nominal, usually string or enums) and `>=` and `<` for continuous (float)
    - only the age attribute is linear, the rest are categorical.
-   - Age is randomly generated between 0 and 100. (is that correct?)
+   - Age is randomly generated between 0 and 100. 
  - **V** contains one of the values belonging to the domain of attribute.
 
 > **Note**

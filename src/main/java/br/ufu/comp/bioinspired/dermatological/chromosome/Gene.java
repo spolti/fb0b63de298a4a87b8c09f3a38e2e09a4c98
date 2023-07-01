@@ -25,8 +25,13 @@ public class Gene {
         // 1 decimal place, 0.1, 0.2, etc.
         float weight = Utils.round1Decimal(r.nextFloat());
 
-        Operator operator = Operator.values()[r.nextInt(Operator.values().length)];
-        int domainValue = Utils.generatedDermatologicalDomainValue(attribute);
+        int domainValue = Utils.generatedDermatologicalDomainValue(attribute, false);
+
+        int excludeLessThanOperator = operator.values().length;
+        if (domainValue <= 0) {
+            excludeLessThanOperator = 3;
+        }
+        Operator operator = Operator.values()[r.nextInt(excludeLessThanOperator)];
 
         this.weight = weight;
         this.operator = operator;

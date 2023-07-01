@@ -15,7 +15,6 @@ public class Main implements QuarkusApplication {
     // common ag attributes
     private final int D_POPULATION_SIZE = 50;
     private final int GENERATIONS = 50;
-
     private final int TURNS = 3;
 
     @Override

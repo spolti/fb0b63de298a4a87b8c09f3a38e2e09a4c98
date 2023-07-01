@@ -52,12 +52,15 @@ public abstract class Utils {
      * @param attribute
      * @return random value based on its domain
      */
-    public static int generatedDermatologicalDomainValue(DermaAttributes attribute) {
+    public static int generatedDermatologicalDomainValue(DermaAttributes attribute, boolean greaterThanZero) {
         int domainValue;
         // there are 2 special fields
         switch (attribute) {
             case AGE:
                 domainValue = r.nextInt(100);
+                while (domainValue == 0) {
+                    domainValue = r.nextInt(100);
+                }
                 break;
 
             case FAMILY_HISTORY:
@@ -66,6 +69,11 @@ public abstract class Utils {
 
             default:
                 domainValue = r.nextInt(4);
+                if (greaterThanZero) {
+                    domainValue = randomBetween(1, 4);
+                }
+                break;
+
         }
         return domainValue;
     }
@@ -125,6 +133,7 @@ public abstract class Utils {
     /**
      * pre-format the rule
      * TODO print all formatted
+     *
      * @param chromosome
      * @param dc
      * @param breastChromosome
@@ -139,8 +148,13 @@ public abstract class Utils {
 
         if (chromosome != null) {
             for (Gene c : chromosome.genes()) {
-                if (c.weight() > 0.7f) {
-                    rule += "("+ DermaAttributes.getByID(c.attributeID()).getName() + ") " + c.operator().getOperator() + c.domainValue() + " AND \n";
+                // TODO centralize through predicate?
+                if (c.weight() > Config.WEIGHT_LIMIT) {
+                    if (c.operator() == Operator.EQUAL && c.domainValue() <= 0) {
+                        System.out.println("Filtering it out.... == 0");
+                    } else {
+                        rule += "(" + DermaAttributes.getByID(c.attributeID()).getName() + ") " + c.operator().getOperator() + " " + c.domainValue() + " AND ";
+                    }
                 }
             }
             b.append(String.format("%s - %s - %s", dc.getName(), rule, trainFit + " - " + testFit));
@@ -148,12 +162,17 @@ public abstract class Utils {
         if (breastChromosome != null) {
             for (BreastGene c : breastChromosome.genes()) {
                 if (c != null) {
-                    if (c.weight() > 0.7f) {
-                        rule += "("+ BreastAttributes.getByID(c.attributeID()).getName() + ") " + c.operator().getOperator() + " " + c.domainValue() + " AND \n";
+                    // TODO centralize using predicate?
+                    if (c.weight() > Config.WEIGHT_LIMIT) {
+                        if (c.operator() == Operator.EQUAL && c.domainValue().equals("0")) {
+                            System.out.println("Filtering it out.... == 0");
+                        } else {
+                            rule += "(" + BreastAttributes.getByID(c.attributeID()).getName() + ") " + c.operator().getOperator() + " " + c.domainValue() + " AND";
+                        }
                     }
                 }
             }
-            b.append(String.format("%s - %s - %s", breastClasses.getName(), rule, trainFit + " - " + testFit));
+            b.append(String.format("%s - %s - %s \n", breastClasses.getName(), rule, trainFit + " - " + testFit));
         }
         System.out.println(b);
     }

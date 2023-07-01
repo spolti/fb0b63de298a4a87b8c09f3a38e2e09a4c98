@@ -85,7 +85,9 @@ public class Tournament {
                 if (random.nextDouble() < 0.3) {
                     DermaAttributes attribute = DermaAttributes.getByID(children[i].genes().get(k).attributeID());
                     // if the gene is mutated, the new value will be a random value between 0 and 1
-                    children[i].genes().get(k).setDomainValue(Mutation.mutateDomainValue(attribute, children[i].genes().get(k).domainValue()));
+                    children[i].genes().get(k).setDomainValue(Mutation.mutateDomainValue(attribute,
+                            children[i].genes().get(k).domainValue(),
+                            children[i].genes().get(k).operator()));
                 }
             }
         }

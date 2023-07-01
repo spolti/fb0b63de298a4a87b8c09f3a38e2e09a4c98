@@ -2,6 +2,7 @@
 /Users/fspolti/data/dev/sources/classification-rules/src/main/java/br/ufu/comp/bioinspired/RunDermatological.java
 /Users/fspolti/data/dev/sources/classification-rules/src/main/java/br/ufu/comp/bioinspired/breast/ag/Tournament.java
 /Users/fspolti/data/dev/sources/classification-rules/src/main/java/br/ufu/comp/bioinspired/breast/chromosome/BreastGene.java
+/Users/fspolti/data/dev/sources/classification-rules/src/main/java/br/ufu/comp/bioinspired/Config.java
 /Users/fspolti/data/dev/sources/classification-rules/src/main/java/br/ufu/comp/bioinspired/breast/attributes/BreastClasses.java
 /Users/fspolti/data/dev/sources/classification-rules/src/main/java/br/ufu/comp/bioinspired/dermatological/attributes/DermaAttributes.java
 /Users/fspolti/data/dev/sources/classification-rules/src/main/java/br/ufu/comp/bioinspired/dermatological/dataset/DermatologicalDataset.java

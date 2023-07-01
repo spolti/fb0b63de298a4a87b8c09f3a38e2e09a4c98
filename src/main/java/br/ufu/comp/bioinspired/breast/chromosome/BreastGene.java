@@ -25,14 +25,23 @@ public class BreastGene {
         // 1 decimal place, 0.1, 0.2, etc.
         float weight = Utils.round1Decimal(r.nextFloat());
 
+        String domainValue = Utils.generatedBreastDomainValue(attribute);
 
         int randOperator = 4;
-        if (BreastAttributes.stringOperator.contains(attribute.getName())) {
-            // allows only == or !=
-            randOperator = 2;
+        Operator operator = null;
+        boolean proceed = false;
+        while (!proceed) {
+            if (BreastAttributes.stringOperator.contains(attribute.getName())) {
+                // allows only == or != for categorical attributes
+                randOperator = 2;
+            }
+            operator = Operator.values()[r.nextInt(randOperator)];
+                if (operator == Operator.LESS_THAN && domainValue.equals("0")) {
+                proceed = false;
+            } else {
+                proceed = true;
+            }
         }
-        Operator operator = Operator.values()[r.nextInt(randOperator)];
-        String domainValue = Utils.generatedBreastDomainValue(attribute);
 
         this.weight = weight;
         this.operator = operator;
