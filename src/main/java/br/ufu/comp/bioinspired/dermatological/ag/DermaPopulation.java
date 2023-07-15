@@ -28,14 +28,16 @@ public class DermaPopulation {
         }
         individuals = Fitness.calculateFitness(individuals, this.diseaseClass, dataset);
 
-        Arrays.sort(individuals, Comparator.comparingDouble(Chromosome::getFitness).reversed());
+       // Arrays.sort(individuals, Comparator.comparingDouble(Chromosome::getFitness).reversed());
         // Do tournament (CrossOver and Mutation will happen inside the tournament, and replace the new individuals in the population)
         // with the new population.
 
         for (int i = 0; i < generations; i++) {
+            Arrays.sort(individuals, Comparator.comparingDouble(Chromosome::getFitness).reversed());
             // Mutation also happens here.
             individuals = Tournament.stochasticTournament(individuals, diseaseClass, dataset);
         }
+        System.out.println("Final Individuals Size: " + individuals.length);
 
         // sort again
         Arrays.sort(individuals, Comparator.comparingDouble(Chromosome::getFitness).reversed());
@@ -51,8 +53,8 @@ public class DermaPopulation {
         for (int j = 0; j < individuals[0].genes().size(); j++) {
             // TODO centralize through predicate?
             if (individuals[0].genes().get(j).weight() > Config.WEIGHT_LIMIT) {
-                if (individuals[0].genes().get(j).operator() == Operator.EQUAL && individuals[0].genes().get(j).domainValue() <= 0) {
-                    System.out.println("Filtering it out.... == 0");
+                if (individuals[0].genes().get(j).operator() == Operator.GREATER_EQUAL_THAN && individuals[0].genes().get(j).domainValue() == 0) {
+//                    System.out.println("Filtering it out.... >= 0");
                 } else {
                     // normalize means, add only the genes that have weight > 0.7
                     normalizedGene.add(individuals[0].genes().get(j));

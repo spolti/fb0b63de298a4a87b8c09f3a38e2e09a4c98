@@ -150,9 +150,9 @@ public abstract class Utils {
             for (Gene c : chromosome.genes()) {
                 // TODO centralize through predicate?
                 if (c.weight() > Config.WEIGHT_LIMIT) {
-                    if (c.operator() == Operator.EQUAL && c.domainValue() <= 0) {
-                        System.out.println("Filtering it out.... == 0");
-                    } else {
+                    if (c.operator() == Operator.GREATER_EQUAL_THAN && c.domainValue() == 0) {
+                        //System.out.println("Filtering it out.... >= 0");
+                    }else {
                         rule += "(" + DermaAttributes.getByID(c.attributeID()).getName() + ") " + c.operator().getOperator() + " " + c.domainValue() + " AND ";
                     }
                 }
@@ -164,8 +164,8 @@ public abstract class Utils {
                 if (c != null) {
                     // TODO centralize using predicate?
                     if (c.weight() > Config.WEIGHT_LIMIT) {
-                        if (c.operator() == Operator.EQUAL && c.domainValue().equals("0")) {
-                            System.out.println("Filtering it out.... == 0");
+                        if (c.operator() == Operator.GREATER_EQUAL_THAN && c.domainValue().equals("0")) {
+                            System.out.println("Filtering it out.... >= 0");
                         } else {
                             rule += "(" + BreastAttributes.getByID(c.attributeID()).getName() + ") " + c.operator().getOperator() + " " + c.domainValue() + " AND";
                         }

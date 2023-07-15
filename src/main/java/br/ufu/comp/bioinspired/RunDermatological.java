@@ -37,35 +37,35 @@ public class RunDermatological {
                 bestClass1 = class1;
             }
 
-            DermaPopulation class2 = new DermaPopulation(populationSize, chromosomeSize, generations, DermaClasses.fromId(2), dermaDataset.trainingDataset());
-            if (class2.getIndividuals()[0].getFitness() > class2Fitness) {
-                class2Fitness = class2.getIndividuals()[0].getFitness();
-                bestClass2 = class2;
-            }
-
-            DermaPopulation class3 = new DermaPopulation(populationSize, chromosomeSize, generations, DermaClasses.fromId(3), dermaDataset.trainingDataset());
-            if (class3.getIndividuals()[0].getFitness() > class3Fitness) {
-                class3Fitness = class3.getIndividuals()[0].getFitness();
-                bestClass3 = class3;
-            }
-
-            DermaPopulation class4 = new DermaPopulation(populationSize, chromosomeSize, generations, DermaClasses.fromId(4), dermaDataset.trainingDataset());
-            if (class4.getIndividuals()[0].getFitness() > class4Fitness) {
-                class4Fitness = class4.getIndividuals()[0].getFitness();
-                bestClass4 = class4;
-            }
-
-            DermaPopulation class5 = new DermaPopulation(populationSize, chromosomeSize, generations, DermaClasses.fromId(5), dermaDataset.trainingDataset());
-            if (class5.getIndividuals()[0].getFitness() > class5Fitness) {
-                class5Fitness = class5.getIndividuals()[0].getFitness();
-                bestClass5 = class5;
-            }
-
-            DermaPopulation class6 = new DermaPopulation(populationSize, chromosomeSize, generations, DermaClasses.fromId(6), dermaDataset.trainingDataset());
-            if (class6.getIndividuals()[0].getFitness() > class6Fitness) {
-                class6Fitness = class6.getIndividuals()[0].getFitness();
-                bestClass6 = class6;
-            }
+//            DermaPopulation class2 = new DermaPopulation(populationSize, chromosomeSize, generations, DermaClasses.fromId(2), dermaDataset.trainingDataset());
+//            if (class2.getIndividuals()[0].getFitness() > class2Fitness) {
+//                class2Fitness = class2.getIndividuals()[0].getFitness();
+//                bestClass2 = class2;
+//            }
+//
+//            DermaPopulation class3 = new DermaPopulation(populationSize, chromosomeSize, generations, DermaClasses.fromId(3), dermaDataset.trainingDataset());
+//            if (class3.getIndividuals()[0].getFitness() > class3Fitness) {
+//                class3Fitness = class3.getIndividuals()[0].getFitness();
+//                bestClass3 = class3;
+//            }
+//
+//            DermaPopulation class4 = new DermaPopulation(populationSize, chromosomeSize, generations, DermaClasses.fromId(4), dermaDataset.trainingDataset());
+//            if (class4.getIndividuals()[0].getFitness() > class4Fitness) {
+//                class4Fitness = class4.getIndividuals()[0].getFitness();
+//                bestClass4 = class4;
+//            }
+//
+//            DermaPopulation class5 = new DermaPopulation(populationSize, chromosomeSize, generations, DermaClasses.fromId(5), dermaDataset.trainingDataset());
+//            if (class5.getIndividuals()[0].getFitness() > class5Fitness) {
+//                class5Fitness = class5.getIndividuals()[0].getFitness();
+//                bestClass5 = class5;
+//            }
+//
+//            DermaPopulation class6 = new DermaPopulation(populationSize, chromosomeSize, generations, DermaClasses.fromId(6), dermaDataset.trainingDataset());
+//            if (class6.getIndividuals()[0].getFitness() > class6Fitness) {
+//                class6Fitness = class6.getIndividuals()[0].getFitness();
+//                bestClass6 = class6;
+//            }
         }
 
         if (bestClass1.getIndividuals() != null) {
@@ -76,7 +76,7 @@ public class RunDermatological {
             bestClass1.getIndividuals()[0].setFitness(fitnessFirstc1);
             bestClass1.getBest(testFitc1);
             Utils.formatResult(bestClass1.getIndividuals()[0], DermaClasses.fromId(1), null,
-                    null, bestClass1.getIndividuals()[0].getFitness(), fitnessFirstc1);
+                    null, bestClass1.getIndividuals()[0].getFitness(), testFitc1);
         }
 
 
