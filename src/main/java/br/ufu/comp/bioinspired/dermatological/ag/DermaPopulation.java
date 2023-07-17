@@ -51,8 +51,8 @@ public class DermaPopulation {
         for (int j = 0; j < individuals[0].genes().size(); j++) {
             // TODO centralize through predicate?
             if (individuals[0].genes().get(j).weight() > Config.WEIGHT_LIMIT) {
-                if (individuals[0].genes().get(j).operator() == Operator.EQUAL && individuals[0].genes().get(j).domainValue() <= 0) {
-                    System.out.println("Filtering it out.... == 0");
+                if (individuals[0].genes().get(j).operator() == Operator.GREATER_EQUAL_THAN && individuals[0].genes().get(j).domainValue() == 0) {
+                    System.out.println("Filtering it out.... >= 0");
                 } else {
                     // normalize means, add only the genes that have weight > 0.7
                     normalizedGene.add(individuals[0].genes().get(j));

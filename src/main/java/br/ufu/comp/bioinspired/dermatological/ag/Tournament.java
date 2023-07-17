@@ -55,8 +55,11 @@ public class Tournament {
 
             // Perform crossover if crossover probability is met
             if (random.nextDouble() < CROSSOVER_PROBABILITY) {
-                children[i] = performTwoPointCrossover(parent1, parent2, random)[0];
-                children[(chromosomes.length / 2) + i] = performTwoPointCrossover(parent1, parent2, random)[1];
+                Chromosome[] cls = performTwoPointCrossover(parent1, parent2, random);
+                children[i] = cls[0];
+                children[(chromosomes.length / 2) + i] = cls[1];
+                //children[i] = performTwoPointCrossover(parent1, parent2, random)[0];
+                //children[(chromosomes.length / 2) + i] = performTwoPointCrossover(parent1, parent2, random)[1];
 
             } else {
                 // If crossover is not performed, select one of the parents as the child
