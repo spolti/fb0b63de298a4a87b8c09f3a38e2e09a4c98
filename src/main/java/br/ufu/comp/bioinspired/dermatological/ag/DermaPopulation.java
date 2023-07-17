@@ -37,7 +37,6 @@ public class DermaPopulation {
             // Mutation also happens here.
             individuals = Tournament.stochasticTournament(individuals, diseaseClass, dataset);
         }
-
         // sort again
         Arrays.sort(individuals, Comparator.comparingDouble(Chromosome::getFitness).reversed());
     }
