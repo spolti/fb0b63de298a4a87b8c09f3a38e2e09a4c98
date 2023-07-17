@@ -48,6 +48,7 @@ public class Tournament {
         }
 
         Chromosome[] children = new Chromosome[chromosomes.length];
+        Chromosome[] roundResult = new Chromosome[chromosomes.length + 1];
         // TODO small bug, only accepts even numbers for population size > 2
         for (int i = 0; i < chromosomes.length / 2; i++) {
             Chromosome parent1 = performTournamentSelection(chromosomes, random, totalFitness, rouletteTotal);

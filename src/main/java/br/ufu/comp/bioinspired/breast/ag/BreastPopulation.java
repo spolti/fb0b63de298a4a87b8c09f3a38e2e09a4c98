@@ -33,11 +33,12 @@ public class BreastPopulation {
 
         individuals = BreastFitness.calculateFitness(individuals, this.breastClass, dataset);
 
-        Arrays.sort(individuals, Comparator.comparingDouble(BreastChromosome::getFitness).reversed());
+        // Arrays.sort(individuals, Comparator.comparingDouble(BreastChromosome::getFitness).reversed());
         // Do tournament (CrossOver and Mutation will happen inside the tournament, and replace the new individuals in the population)
         // with the new population.
 
         for (int i = 0; i < generations; i++) {
+            Arrays.sort(individuals, Comparator.comparingDouble(BreastChromosome::getFitness).reversed());
             // Mutation also happens here.
             individuals = Tournament.stochasticTournament(individuals, this.breastClass, dataset);
         }
