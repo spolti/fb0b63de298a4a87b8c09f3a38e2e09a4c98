@@ -48,30 +48,40 @@ public class Tournament {
         }
 
         Chromosome[] children = new Chromosome[chromosomes.length];
-        // TODO small bug, only accepts even numbers for population size > 2
-        for (int i = 0; i < chromosomes.length / 2; i++) {
+        Chromosome[] roundResult = new Chromosome[chromosomes.length + 1];
+        int size = chromosomes.length;
+        if (size % 2 != 0) {
+            size += 1;
+        }
+
+        for (int i = 0; i < size / 2; i++) {
             Chromosome parent1 = performTournamentSelection(chromosomes, random, totalFitness, rouletteTotal);
             Chromosome parent2 = performTournamentSelection(chromosomes, random, totalFitness, rouletteTotal);
 
             // Perform crossover if crossover probability is met
             if (random.nextDouble() < CROSSOVER_PROBABILITY) {
-                children[i] = performTwoPointCrossover(parent1, parent2, random)[0];
-                children[(chromosomes.length / 2) + i] = performTwoPointCrossover(parent1, parent2, random)[1];
+                Chromosome[] cls = performTwoPointCrossover(parent1, parent2, random);
+                children[i] = cls[0];
+                //children[(size / 2) + i] = cls[1];
+                try {
+                    children[(size / 2) + i] = cls[1];
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    // ignore
+                }
 
             } else {
                 // If crossover is not performed, select one of the parents as the child
                 System.out.println("No crossover - as the rate is 100%, this point should never be reached.");
                 children[i] = parent1;
-                children[(chromosomes.length / 2) + i] = parent2;
+                children[(size / 2) + i] = parent2;
             }
         }
 
         // calculate the fitness of the new population
         children = Fitness.calculateFitness(children, diseaseClass, dataset);
-        Arrays.sort(children, Comparator.comparingDouble(Chromosome::getFitness).reversed());
+        //Arrays.sort(children, Comparator.comparingDouble(Chromosome::getFitness).reversed());
         // Mutation
-        // best chromosome will not be mutated, so start the loop from 1.
-        for (int i = 1; i < children.length; i++) {
+        for (int i = 0; i < children.length; i++) {
             // for each chromosome, all gene attributes have the 30% of chances to be mutated.
             for (int k = 0; k < children[i].genes().size(); k++) {
                 if (random.nextDouble() < 0.3) {
@@ -90,8 +100,11 @@ public class Tournament {
                             children[i].genes().get(k).operator()));
                 }
             }
+            roundResult[i] = children[i];
         }
-        return children;
+        // best survives without mutation
+        roundResult[roundResult.length-1] = chromosomes[0];
+        return Fitness.calculateFitness(roundResult, diseaseClass, dataset);
     }
 
     // Perform two-point crossover between two parents

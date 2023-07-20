@@ -25,6 +25,7 @@ public abstract class Mutation {
         // TODO put debug level
         // System.out.println(weight + " +  ("+sign+" * "+randomFloat+")");
         float mutatedWeith = Utils.round1Decimal(weight + (sign * randomFloat));
+        //System.out.println("mutated weithg asd" + mutatedWeith);
         if (mutatedWeith > 1.0f)
             return 1.0f;
         else if (mutatedWeith <= 0.0f)

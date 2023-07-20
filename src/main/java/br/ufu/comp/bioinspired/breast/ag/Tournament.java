@@ -4,6 +4,7 @@ import br.ufu.comp.bioinspired.breast.attributes.BreastAttributes;
 import br.ufu.comp.bioinspired.breast.attributes.BreastClasses;
 import br.ufu.comp.bioinspired.breast.chromosome.BreastChromosome;
 import br.ufu.comp.bioinspired.breast.chromosome.BreastGene;
+import br.ufu.comp.bioinspired.dermatological.chromosome.Chromosome;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -63,8 +64,11 @@ public class Tournament {
 
             // Perform crossover if crossover probability is met
             if (random.nextDouble() < CROSSOVER_PROBABILITY) {
-                children[j++] = performTwoPointCrossover(parent1, parent2, random)[0];
-                children[j++] = performTwoPointCrossover(parent1, parent2, random)[1];
+                BreastChromosome[] cls = performTwoPointCrossover(parent1, parent2, random);
+                children[i] = cls[0];
+                children[(chromosomes.length / 2) + i] = cls[1];
+                //children[j++] = performTwoPointCrossover(parent1, parent2, random)[0];
+                //children[j++] = performTwoPointCrossover(parent1, parent2, random)[1];
 
             } else {
                 // If crossover is not performed, select one of the parents as the child
